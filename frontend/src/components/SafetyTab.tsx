@@ -28,7 +28,7 @@ input.type = showPw ? 'text' : 'password'`,
     icon: Server,
     title: 'Server-side ephemeral processing',
     color: 'text-green-400 bg-green-400/10 border-green-500/20',
-    description: 'The Flask backend receives the password, runs the analysis immediately, and discards it. The variable goes out of scope as soon as the response is sent. No database writes, no file writes, no logging.',
+    description: 'The password is sent over HTTPS to a secure backend that analyzes it immediately and discards it. The variable goes out of scope as soon as the response is sent — no database writes, no file writes, no logging. For maximum privacy, run the app locally: in that case the password never leaves your machine at all.',
     code: `# app.py — Flask backend
 @app.route('/api/analyze', methods=['POST'])
 def analyze():
@@ -110,7 +110,7 @@ pw = None  // drop reference
     icon: ShieldCheck,
     title: 'Audit-friendly transparency',
     color: 'text-cyan-400 bg-cyan-400/10 border-cyan-500/20',
-    description: 'All code is open and inspectable. You can verify the zero-persistence policy yourself by reading the source. The browser Network tab will show exactly one POST request to /api/analyze containing the password, and nothing else.',
+    description: 'All code is open and inspectable on GitHub. You can verify the zero-persistence policy yourself by reading the source. The browser Network tab will show exactly one POST request to the analysis endpoint containing the password, and nothing else.',
     code: `# How to verify in your browser:
 # 1. Open DevTools (F12)
 # 2. Go to Network tab
@@ -121,11 +121,14 @@ pw = None  // drop reference
 
 # 5. Inspect the request body:
 #    { "password": "your_password" }
-#    ← sent to localhost only, never the internet
+#    ← sent over HTTPS, immediately discarded
 
 # 6. Inspect the response:
 #    { score, label, feedback, ... }
-#    ← password is NOT echoed back`,
+#    ← password is NOT echoed back
+
+# For maximum privacy: run locally.
+# Password never leaves your machine.`,
   },
 ]
 
@@ -139,6 +142,9 @@ export default function SafetyTab() {
           Each policy point pairs a privacy statement with the actual code that implements it.
           You can verify every claim by reading the source directly.
         </p>
+        <div className="mt-4 p-4 rounded-xl bg-yellow-500/10 border border-yellow-500/20 text-yellow-200/80 text-sm">
+          <strong className="text-yellow-400">Privacy note:</strong> The hosted version sends passwords over HTTPS to a secure backend that immediately discards them. For maximum privacy, <a href="https://github.com/SabareeshTJ/VaultSight-Analyzer" className="underline text-yellow-300">run the app locally</a> — the password never leaves your machine in that case.
+        </div>
       </div>
 
       <div className="grid gap-6">
@@ -147,7 +153,6 @@ export default function SafetyTab() {
           return (
             <div key={policy.title} className={`glass-panel rounded-2xl overflow-hidden border ${policy.color.split(' ').pop()}`}>
               <div className="grid grid-cols-1 md:grid-cols-2">
-                {/* Left: explanation */}
                 <div className="p-6 border-r border-white/5">
                   <div className="flex items-center gap-3 mb-4">
                     <div className={`p-2.5 rounded-xl ${policy.color.split(' ').slice(0,2).join(' ')}`}>
@@ -157,7 +162,6 @@ export default function SafetyTab() {
                   </div>
                   <p className="text-gray-300 text-sm leading-relaxed">{policy.description}</p>
                 </div>
-                {/* Right: code */}
                 <div className="p-6">
                   <p className="text-xs text-gray-500 uppercase tracking-widest mb-3">Auditable code</p>
                   <div className="code-block text-xs">{policy.code}</div>
@@ -168,7 +172,6 @@ export default function SafetyTab() {
         })}
       </div>
 
-      {/* Proof of concept */}
       <div className="glass-panel p-6 rounded-3xl border border-cyan-500/20">
         <h3 className="text-lg font-bold mb-2 text-cyan-300">Proof of Concept</h3>
         <p className="text-gray-400 text-sm mb-5">VaultSight correctly identifies which of these is stronger, and explains exactly why.</p>

@@ -6,7 +6,7 @@ import type { PasswordAnalysis } from '../types';
  * The backend analyzes it and immediately discards it — no persistence.
  */
 export async function analyzePassword(password: string): Promise<PasswordAnalysis> {
-  const response = await fetch('/api/analyze', {
+  const response = await fetch('https://vaultsight-backend.onrender.com/api/analyze', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ password }),
