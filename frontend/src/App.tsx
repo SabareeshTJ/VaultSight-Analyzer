@@ -42,20 +42,20 @@ export default function App() {
           </motion.div>
 
           <motion.h1
-  initial={{ y: 20, opacity: 0 }}
-  animate={{ y: 0, opacity: 1 }}
-  transition={{ duration: 0.5, delay: 0.1 }}
-  className="text-3xl sm:text-5xl lg:text-6xl font-extrabold mb-3 font-display px-6 pb-2"
-  style={{
-    background: 'linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.6) 100%)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-    backgroundClip: 'text',
-    overflow: 'visible',
-  }}
->
-  VaultSight Analyzer
-</motion.h1>
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-3xl sm:text-5xl lg:text-6xl font-extrabold mb-3 font-display px-6 pb-2"
+            style={{
+              background: 'linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.6) 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              overflow: 'visible',
+            }}
+          >
+            VaultSight Analyzer
+          </motion.h1>
 
           <motion.p
             initial={{ y: 20, opacity: 0 }}
@@ -64,6 +64,17 @@ export default function App() {
             className="text-base sm:text-lg text-gray-400 max-w-2xl mx-auto"
           >
             Test your password strength locally. Learn to defend against modern credential attacks.
+          </motion.p>
+
+          <motion.p
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="text-sm text-gray-500 mt-2"
+          >
+            Built by{' '}
+            <a href="https://github.com/SabareeshTJ" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">Sabareesh TJ</a>
+            {' '}· Cybersecurity Capstone Project
           </motion.p>
         </div>
 
@@ -105,6 +116,17 @@ export default function App() {
         </div>
 
       </main>
+
+      {/* Footer */}
+      <footer className="text-center mt-20 pb-8 text-gray-600 text-sm">
+        <p>
+          Built by{' '}
+          <a href="https://github.com/SabareeshTJ" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">Sabareesh TJ</a>
+          {' '}·{' '}
+          <a href="https://github.com/SabareeshTJ/VaultSight-Analyzer" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">View on GitHub</a>
+        </p>
+      </footer>
+
     </div>
   )
 }
